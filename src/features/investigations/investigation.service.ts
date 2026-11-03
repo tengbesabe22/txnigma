@@ -1,14 +1,18 @@
-import { generateText } from 'ai';
+import { generateText, Output } from 'ai';
 import provider from '@/src/lib/ai/provider';
 import investigationPrompt from './investigation.prompt';
+import { InvestigationOutput, investigationOutputSchema } from './investigation.schema';
 
 export async function investigateTransaction(
   description: string,
-): Promise<string> {
+): Promise<InvestigationOutput> {
   const startedAt = performance.now();
-  const { text, usage } = await generateText({
+  const { output, usage } = await generateText({
     model: provider,
     system: investigationPrompt,
+    output: Output.object({
+      schema: investigationOutputSchema,
+    }),
     prompt: description,
     maxOutputTokens: 800,
     timeout: 30_000,
@@ -21,5 +25,5 @@ export async function investigateTransaction(
     outputTokens: usage.outputTokens,
   });
 
-  return text;
+  return output;
 }
