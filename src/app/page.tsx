@@ -1,68 +1,171 @@
-import Image from "next/image";
+import Link from "next/link";
+import {
+  ArrowDownLeft,
+  ArrowUpRight,
+  FileSearch,
+  Layers2,
+  ScanLine,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
+import InvestigationForm from "@/src/features/investigations/components/investigation-form";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+    <div className="app-shell">
+      <aside className="navigation-rail" aria-label="Workspace navigation">
+        <Link href="/" className="rail-logo" aria-label="Txnigma home">
+          <ScanLine size={23} strokeWidth={2.1} />
+        </Link>
+        <nav>
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#investigation"
+            className="rail-link active"
+            aria-label="Investigation workspace"
+            title="Investigation workspace"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
+            <FileSearch size={21} />
           </a>
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#sample-cases"
+            className="rail-link"
+            aria-label="Sample cases"
+            title="Sample cases"
           >
-            Documentation
+            <Layers2 size={21} />
           </a>
+          <a
+            href="#how-it-works"
+            className="rail-link"
+            aria-label="How it works"
+            title="How it works"
+          >
+            <Sparkles size={21} />
+          </a>
+        </nav>
+        <span className="rail-bottom" title="Synthetic data workspace">
+          <ShieldCheck size={20} />
+        </span>
+      </aside>
+      <main className="workspace">
+        <header className="brand-bar">
+          <Link className="brand" href="/">
+            txnigma<span className="brand-period">.</span>
+          </Link>
+          <span className="workspace-label">
+            Payment intelligence <span>/</span> Investigation workspace
+          </span>
+          <span className="demo-tag">
+            <span className="live-dot" />
+            Sandbox environment
+          </span>
+        </header>
+        <section className="intro" aria-labelledby="workspace-title">
+          <div className="intro-copy">
+            <div className="eyebrow">
+              <span />A LITTLE CLARITY GOES A LONG WAY
+            </div>
+            <h1 id="workspace-title">
+              Every payment has a story.
+              <br />
+              <span>Let’s make sense of yours.</span>
+            </h1>
+            <p>
+              Turn a confusing charge into a clear starting point.
+              <br className="desktop-break" /> Explore possible causes, missing
+              evidence, and what to do next.
+            </p>
+            <a className="intro-link" href="#description">
+              Start an investigation <ArrowUpRight size={15} />
+            </a>
+          </div>
+          <div className="clarity-art" aria-hidden="true">
+            <div className="art-orbit orbit-one" />
+            <div className="art-orbit orbit-two" />
+            <div className="art-orbit orbit-three" />
+            <div className="art-node node-one">
+              <ArrowDownLeft size={19} />
+            </div>
+            <div className="art-node node-two">
+              <ArrowUpRight size={19} />
+            </div>
+            <div className="art-sheet">
+              <div className="art-sheet-top">
+                <ScanLine size={22} />
+                <span>FOLLOW THE SIGNAL</span>
+              </div>
+              <div className="art-line" />
+              <div className="art-line short" />
+              <div className="art-sheet-bottom">
+                <span className="art-dot" />
+                From questions to next steps
+                <ArrowUpRight size={14} />
+              </div>
+            </div>
+            <div className="art-caption">
+              <span />
+              Clarity, one clue at a time.
+            </div>
+          </div>
+        </section>
+        <div className="workspace-section-heading" id="investigation">
+          <div>
+            <span className="section-eyebrow">YOUR WORKSPACE</span>
+            <h2>A fresh perspective on your payment.</h2>
+          </div>
+          <span className="workspace-note">
+            <ShieldCheck size={15} />
+            Synthetic reports only
+          </span>
         </div>
+        <InvestigationForm />
+        <section
+          id="how-it-works"
+          className="method-strip"
+          aria-label="How investigations work"
+        >
+          <div className="method-intro">
+            <span className="section-eyebrow">A CLEARER WAY THROUGH</span>
+            <h2>
+              Less guesswork.
+              <br />
+              Better questions.
+            </h2>
+          </div>
+          <div>
+            <span className="method-number">01</span>
+            <h3>Share what happened</h3>
+            <p>
+              A description is enough to get started. Include an ID or amount if
+              you have one.
+            </p>
+          </div>
+          <div>
+            <span className="method-number">02</span>
+            <h3>Explore the possibilities</h3>
+            <p>
+              Separate reported observations from hypotheses and see what
+              evidence is missing.
+            </p>
+          </div>
+          <div>
+            <span className="method-number">03</span>
+            <h3>Know what to check next</h3>
+            <p>
+              Get practical investigation steps to verify against your payment
+              records.
+            </p>
+          </div>
+        </section>
+        <footer className="workspace-footer">
+          <span>
+            txnigma<span className="brand-period">.</span>
+            <span className="footer-tagline">
+              Every transaction tells a story.
+            </span>
+          </span>
+          <span>AI-assisted analysis. Human judgment.</span>
+        </footer>
       </main>
     </div>
   );

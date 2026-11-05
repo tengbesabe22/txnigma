@@ -1,29 +1,34 @@
-import { generateText, Output } from 'ai';
-import provider from '@/src/lib/ai/provider';
-import investigationPrompt from './investigation.prompt';
-import { InvestigationOutput, investigationOutputSchema } from './investigation.schema';
+import { streamText, Output } from "ai";
+import provider from "@/src/lib/ai/provider";
+import investigationPrompt from "./investigation.prompt";
+import { investigationOutputSchema } from "./investigation.schema";
 
-export async function investigateTransaction(
+export function streamInvestigation(
   description: string,
-): Promise<InvestigationOutput> {
+  abortSignal: AbortSignal,
+  requestId: string,
+) {
   const startedAt = performance.now();
-  const { output, usage } = await generateText({
+  return streamText({
     model: provider,
     system: investigationPrompt,
-    output: Output.object({
-      schema: investigationOutputSchema,
-    }),
+    output: Output.object({ schema: investigationOutputSchema }),
     prompt: description,
     maxOutputTokens: 800,
     timeout: 30_000,
     maxRetries: 0,
+    abortSignal,
+    onError: ({ error }) =>
+      console.error("Investigation failed", {
+        requestId,
+        category: error instanceof Error ? error.name : "UnknownError",
+      }),
+    onFinish: ({ totalUsage }) =>
+      console.info("Investigation usage", {
+        requestId,
+        durationMs: Math.round(performance.now() - startedAt),
+        inputTokens: totalUsage.inputTokens,
+        outputTokens: totalUsage.outputTokens,
+      }),
   });
-
-  console.info('Investigation usage', {
-    durationMs: Math.round(performance.now() - startedAt),
-    inputTokens: usage.inputTokens,
-    outputTokens: usage.outputTokens,
-  });
-
-  return output;
 }
